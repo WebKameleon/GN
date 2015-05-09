@@ -1,6 +1,5 @@
 <?php
 
-
 class GN_Smekta
 {
     public static function smektuj($txt, $vars, $add_globals = false, $filedir = null, $filename = null)
