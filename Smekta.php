@@ -754,40 +754,40 @@ class GN_Smekta
 
         if (!$include_stuff_puked) {
             $ret .= '
-		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-		<script type="text/javascript">
+			<link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+			<script type="text/javascript">
 
-		    function smekta_show_debug(div_id)
-		    {
-                document.getElementById(div_id).style.display = "block";
+				function smekta_show_debug(div_id)
+				{
+					document.getElementById(div_id).style.display = "block";
+	
+					$("#" + div_id).dialog({ width : 800, height : 500 });
+				}
 
-                $("#" + div_id).dialog({ width : 800, height : 500 });
-		    }
+				function smekta_load_jquery_ui()
+				{
+					if (typeof $.ui == "undefined") {
+						var script = document.createElement("script");
+						script.type = "text/javascript";
+						script.src = "//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js";
+						document.getElementsByTagName("head")[0].appendChild(script);
+					}
+				}
 
-		    function smekta_load_jquery_ui()
-		    {
-			if (typeof $.ui == "undefined") {
-			    var script = document.createElement("script");
-			    script.type = "text/javascript";
-			    script.src = "//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js";
-			    document.getElementsByTagName("head")[0].appendChild(script);
-			}
-		    }
+				function smekta_load_jquery()
+				{
+					if (typeof $ == "undefined") {
+						var script = document.createElement("script");
+						script.type = "text/javascript";
+						script.src = "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js";
+						script.onload = smekta_load_jquery_ui;
+						document.getElementsByTagName("head")[0].appendChild(script);
+					} else {
+						smekta_load_jquery_ui();
+					}
+				}
 
-		    function smekta_load_jquery()
-		    {
-                if (typeof $ == "undefined") {
-                    var script = document.createElement("script");
-                    script.type = "text/javascript";
-                    script.src = "//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js";
-                    script.onload = smekta_load_jquery_ui;
-                    document.getElementsByTagName("head")[0].appendChild(script);
-                } else {
-                    smekta_load_jquery_ui();
-                }
-		    }
-
-		    smekta_load_jquery();
+				setTimeout(smekta_load_jquery,3000);
 
 		</script>';
         }
