@@ -787,7 +787,14 @@ class GN_Smekta
 					}
 				}
 
-				setTimeout(smekta_load_jquery,3000);
+				
+				if(window.addEventListener){
+					window.addEventListener("load",smekta_load_jquery,false); 
+				}
+				else{
+					window.attachEvent("onload",smekta_load_jquery); 
+				}				
+				
 
 		</script>';
         }
