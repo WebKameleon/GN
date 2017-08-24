@@ -5,18 +5,18 @@ class GN_Smekta
     public static function smektuj($txt, $vars, $add_globals = false, $filedir = null, $filename = null)
     {
 	
-	self::$level++;
+		self::$level++;
         $debug_str = $filename ? $filename : (strstr($txt, "\n") ? 'text(' . strlen($txt) . ')' : $txt);
         	
-	$txt = self::_general_replace($txt, $filedir);
+		$txt = self::_general_replace($txt, $filedir);
         self::clearvars($vars);
 	
         $ret = self::_replace_tokens($txt, $vars, $add_globals, $debug_str);
         self::$level--;
 	
 	
-	self::_clear_cache();
-	return $ret;
+		self::_clear_cache();
+		return $ret;
     }
 
     private static $level=0;
@@ -26,19 +26,19 @@ class GN_Smekta
     
     private static function _clear_cache()
     {
-	if (self::$level!=0) return;
-	
-	$max_buffer=1000;
-	
-	while (is_array(self::$general_cache) && count(self::$general_cache)>$max_buffer ) unset(self::$general_cache[current(array_keys(self::$general_cache))]); 
-	while (is_array(self::$replace_cache) && count(self::$replace_cache)>$max_buffer ) unset(self::$replace_cache[current(array_keys(self::$replace_cache))]); 
-	
+		if (self::$level!=0) return;
+		
+		$max_buffer=1000;
+		
+		while (is_array(self::$general_cache) && count(self::$general_cache)>$max_buffer ) unset(self::$general_cache[current(array_keys(self::$general_cache))]); 
+		while (is_array(self::$replace_cache) && count(self::$replace_cache)>$max_buffer ) unset(self::$replace_cache[current(array_keys(self::$replace_cache))]); 
+		
     }
     
     private static function _general_replace($txt, $filedir = null)
     {
         static $dir;
-	if ($filedir) $dir = $filedir;
+		if ($filedir) $dir = $filedir;
 
         $token = md5($txt);
 	
@@ -135,6 +135,14 @@ class GN_Smekta
 
 		    case '&':
 			$token = $token & $param[$f][0];
+			break;
+		
+			case '>':
+			$token = $token > $param[$f][0];
+			break;
+		
+			case '<':
+			$token = $token < $param[$f][0];
 			break;
 		    
 		    default:
